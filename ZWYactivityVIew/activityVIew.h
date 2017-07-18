@@ -10,5 +10,5 @@
 #import <UIKit/UIKit.h>
 
 @interface activityVIew : UIView
-
+-(instancetype)initWithDic:(NSDictionary *)dic;
 @end

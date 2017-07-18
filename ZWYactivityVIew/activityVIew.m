@@ -17,16 +17,32 @@
 @end
 
 @implementation activityVIew
+-(instancetype)initWithDic:(NSDictionary *)dic
+{
+    self = [self init];
+    
+    if(self)
+    {
+        self.backgroundColor = [UIColor colorWithRed:253/255.0 green:149/255.0 blue:10/255.0 alpha:1.0];
+        ActivityScrollerView *activityscroll = [[ActivityScrollerView alloc]init];
+        if(dic)
+        {
+                 activityscroll.titleArr = @[dic[@"active_name"],dic[@"active_content"]];
+        }
+   
+        [self addSubview:activityscroll];
+        _activtit = activityscroll;
+        self.userInteractionEnabled = NO;
+    }
+    
+    return self;
+}
 
 -(instancetype)init
 {
     self = [super init];
     if(self)
     {
-        ActivityScrollerView *activityscroll = [[ActivityScrollerView alloc]init];
-        activityscroll.titleArr = @[@"1",@"2",@"3",@"4"];
-        [self addSubview:activityscroll];
-        _activtit = activityscroll;
         
         
     }
@@ -42,6 +58,6 @@
 -(void)dealloc
 {
     [_activtit.timer invalidate];
-    NSLog(@"======");
+    NSLog(@"===view销毁===");
 }
 @end

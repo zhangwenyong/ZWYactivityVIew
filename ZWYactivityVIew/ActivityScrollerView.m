@@ -33,18 +33,16 @@
     self.contentSize = CGSizeMake([[UIScreen mainScreen]bounds].size.width, 30*(_titleArr.count+2));
     self.contentOffset = CGPointMake(0, 30);
      [self addUI];
- _timer =   [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(ZWYrunllop) userInfo:nil repeats:YES];
+   _timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(ZWYrunllop) userInfo:nil repeats:YES];
 }
 
 
 -(void)ZWYrunllop
 {
+   
     CGPoint point = self.contentOffset;
-    
     point.y =point.y+30;
-
     [self setContentOffset:point animated:YES];
-    
 }
 
 -(void)addUI{
@@ -52,7 +50,11 @@
     for(int i=0;i<_titleArr.count+2;i++)
     {
         UILabel *lbale = [[UILabel alloc]init];
-        lbale.backgroundColor = [UIColor redColor];
+    
+        lbale.font = [UIFont systemFontOfSize:14];
+        
+        lbale.textColor = [UIColor whiteColor];
+//        lbale.textAlignment = NSTextAlignmentCenter;
         
         if(i==0)
         {
@@ -78,11 +80,47 @@
     for(int i=0; i<self.subviews.count;i++)
     {
         UILabel *lable = self.subviews[i];
-        lable.frame = CGRectMake(0, 30*i, [[UIScreen mainScreen]bounds].size.width, 30);
+        lable.frame = CGRectMake(30, 30*i, [[UIScreen mainScreen]bounds].size.width, 30);
     }
     
 }
 
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    NSInteger  count = _titleArr.count;
+    
+    if(self.contentOffset.y ==0)
+    {
+        
+        self.contentOffset = CGPointMake(0, (count)*self.frame.size.height);
+        
+    }
+    else if (self.contentOffset.y ==(count+1)*self.frame.size.height)
+    {
+        
+        self.contentOffset = CGPointMake(0, self.frame.size.height);
+    }
+    
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    
+    NSInteger  count = _titleArr.count;
+    
+    if(self.contentOffset.y ==0)
+    {
+        
+        self.contentOffset = CGPointMake(0, (count)*self.frame.size.height);
+        
+    }
+    else if (self.contentOffset.y ==(count+1)*self.frame.size.height)
+    {
+        
+        self.contentOffset = CGPointMake(0, self.frame.size.height);
+    }
+    
+}
 #pragma dd
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -96,8 +134,7 @@
     }
     else if (self.contentOffset.y ==(count+1)*self.frame.size.height)
     {
-        
-    
+
         self.contentOffset = CGPointMake(0, self.frame.size.height);
     }
     
@@ -107,7 +144,7 @@
 
 -(void)dealloc
 {
-  
+    NSLog(@"消息销毁销毁");
 }
 
 
